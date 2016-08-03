@@ -446,4 +446,4 @@ var levelOneGameState = {
   game.state.add('levelThreeGameState', levelThreeGameState);
   game.state.add('titleState', titleState);
   game.state.add('endState', endState);
-  game.state.start('levelThreeGameState');
+  game.state.start('titleState');
