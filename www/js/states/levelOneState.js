@@ -53,10 +53,13 @@ var levelOneGameState = {
 
 
     this.levelData = JSON.parse(this.game.cache.getText('level1'));
-    // music
+    //music
     this.levelOneSong = this.add.audio('levelOneSong');
-    this.levelOneSong.play();
     this.levelOneSong.loop = true
+    this.levelOneSong.play();
+
+
+
 
     //bottom floor
     this.ground = this.add.sprite(0, 1130, 'ground');
@@ -197,15 +200,15 @@ var levelOneGameState = {
     this.game.physics.arcade.collide(this.traps, this.ground);
     this.game.physics.arcade.collide(this.traps, this.platforms);
 
-    this.game.physics.arcade.overlap(this.ants, this.player, this.killPlayer);
-    this.game.physics.arcade.overlap(this.spears, this.player, this.killPlayer);
+    this.game.physics.arcade.overlap(this.ants, this.player, this.killPlayer, null, this);
+    this.game.physics.arcade.overlap(this.spears, this.player, this.killPlayer, null, this);
 
     // stop music to prevet layering
     if (this.game.physics.arcade.overlap(this.player, this.goal)) {
       //this.levelOneSong.stop();
     }
 
-    this.game.physics.arcade.overlap(this.player, this.goal, this.levelCleared)
+    this.game.physics.arcade.overlap(this.player, this.goal, this.levelCleared, null, this)
 
     //kill all sowrds that are out of bounds
     this.killSwordsOutBounds();
@@ -285,6 +288,7 @@ var levelOneGameState = {
   }, // *** end of update method
 
   killPlayer: function(player, enemy) {
+    this.levelOneSong.stop();
     lives -= 1;
     if (lives < 1) {
       lives = 3;
@@ -391,7 +395,7 @@ var levelOneGameState = {
   },
 
   levelCleared: function() {
-
+    this.levelOneSong.stop();
     game.state.start('levelTwoGameState');
 
 
@@ -433,6 +437,7 @@ var levelOneGameState = {
   }
 
 };
+
   var lives = 3
   var game = new Phaser.Game(360, 592, Phaser.AUTO);
 
@@ -440,4 +445,5 @@ var levelOneGameState = {
   game.state.add('levelTwoGameState',levelTwoGameState);
   game.state.add('levelThreeGameState', levelThreeGameState);
   game.state.add('titleState', titleState);
-  game.state.start('titleState');
+  game.state.add('endState', endState);
+  game.state.start('levelThreeGameState');

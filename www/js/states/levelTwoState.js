@@ -55,8 +55,9 @@ var levelTwoGameState = {
     this.levelData = JSON.parse(this.game.cache.getText('level2'));
 
     this.levelOneSong = this.add.audio('levelOneSong');
-    this.levelOneSong.play();
     this.levelOneSong.loop = true
+    this.levelOneSong.play();
+
 
     //music
     // this.levelTwoSong = this.add.audio('levelTwoSong');
@@ -202,14 +203,11 @@ var levelTwoGameState = {
     this.game.physics.arcade.collide(this.traps, this.ground);
     this.game.physics.arcade.collide(this.traps, this.platforms);
 
-    this.game.physics.arcade.overlap(this.ants, this.player, this.killPlayer);
-    this.game.physics.arcade.overlap(this.spears, this.player, this.killPlayer);
+    this.game.physics.arcade.overlap(this.ants, this.player, this.killPlayer, null, this);
+    this.game.physics.arcade.overlap(this.spears, this.player, this.killPlayer, null, this);
 
-    if (this.game.physics.arcade.overlap(this.player, this.goal)) {
-      // this.levelTwoSong.stop();
-    }
 
-    this.game.physics.arcade.overlap(this.player, this.goal, this.levelCleared);
+    this.game.physics.arcade.overlap(this.player, this.goal, this.levelCleared, null, this);
 
     //kill all sowrds that are out of bounds
     this.killSwordsOutBounds();
@@ -289,7 +287,7 @@ var levelTwoGameState = {
   }, // *** end of update method
 
   killPlayer: function(player, enemy) {
-    console.log(lives)
+    this.levelOneSong.stop();
     lives -= 1;
     if (lives <= 0){
     lives = 3
@@ -398,6 +396,7 @@ var levelTwoGameState = {
   },
 
   levelCleared: function() {
+    this.levelOneSong.stop();
     //this.levelTwoSong.stop()
     game.state.start('levelThreeGameState');
     // game.state.start('levelTwoGameState');

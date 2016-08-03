@@ -1,0 +1,77 @@
+var endState = {
+  init: function(currentLevel) {
+    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    this.scale.pageAlignHorizontally = true;
+    this.scale.pageAlignVertically = true;
+    this.game.world.setBounds(0,0,360,592);
+  },
+
+
+  preload: function() {
+    this.load.image('titlePage', 'assets/images/titlePage.png');
+  },
+
+  create: function() {
+    this.titlePage = this.add.sprite(0 ,0 , 'titlePage');
+
+    var style = {
+      font: 'bold 10pt Arial',
+      fill: '#911331',
+      align: 'center'
+    }
+
+    var styleB = {
+      font: 'bold 20pt Arial',
+      fill: '#000',
+      align: 'center'
+    }
+    var textData = [
+      { text: 'THANKS FOR PLAYING!'},
+      { text: "The mummy's quest has only begun.."},
+      { text: '\nInterested in sponsoring new enemies, levels or tracks? \ncontact: mummyescape@gmail.com'},
+      { text: '\nPress T to return to the Title Screen'},
+      { text: '\nA BuhlerZ Production'}
+    ];
+
+    var yPercents = [0.65, 0.75, 0.79, 0.85, 0.95];
+    /// text
+    this.contentText = this.game.add.text(this.game.width/2, this.game.height * yPercents[0], '', styleB);
+    this.contentText.anchor.setTo(0.5);
+    this.contentText.setText(textData[0].text);
+    this.contentText.visible = true;
+
+    this.contentText = this.game.add.text(this.game.width/2, this.game.height * yPercents[1], '', style);
+    this.contentText.anchor.setTo(0.5);
+    this.contentText.setText(textData[1].text);
+    this.contentText.visible = true;
+
+    this.contentText = this.game.add.text(this.game.width/2, this.game.height * yPercents[2], '', style);
+    this.contentText.anchor.setTo(0.5);
+    this.contentText.setText(textData[2].text);
+    this.contentText.visible = true;
+
+    this.contentText = this.game.add.text(this.game.width/2, this.game.height * yPercents[3], '', style);
+    this.contentText.anchor.setTo(0.5);
+    this.contentText.setText(textData[3].text);
+    this.contentText.visible = true;
+
+    this.contentText = this.game.add.text(this.game.width/2, this.game.height * yPercents[4], '', style);
+    this.contentText.anchor.setTo(0.5);
+    this.contentText.setText(textData[4].text);
+    this.contentText.visible = true;
+
+    /// start key
+
+    this.titleKey = game.input.keyboard.addKey(Phaser.Keyboard.T);
+
+
+  },
+
+  update: function() {
+    if (this.titleKey.isDown) {
+      game.state.start('titleState');
+    }
+  },
+
+
+}

@@ -58,8 +58,9 @@ var levelThreeGameState = {
     this.levelData = JSON.parse(this.game.cache.getText('level3'));
 
     this.levelOneSong = this.add.audio('levelOneSong');
-    this.levelOneSong.play();
     this.levelOneSong.loop = true
+    this.levelOneSong.play();
+
 
     //music
     // this.levelThreeSong = this.add.audio('levelThreeSong');
@@ -113,7 +114,7 @@ var levelThreeGameState = {
     ////TIMER TIMER TIMER
     var antTimer = 0
     this.antCreator = this.game.time.events.loop(Phaser.Timer.SECOND * 1, function() {
-      if (this.blueBird.customParams.hits < 5) {
+      if (this.blueBird.customParams.hits < 6) {
         if (this.blueBird.customParams.hits < 1) {
           this.shootFireBalls(3);
         }  else if (this.blueBird.customParams.hits < 3) {
@@ -124,20 +125,19 @@ var levelThreeGameState = {
       this.flyBlueBird();
     } else {
       antTimer += 1
-      if (antTimer % 5 === 0) {
+      if (antTimer % 3 === 0) {
       this.createAnt();
       }
     }
     }, this);
-
 
     //platforms
     this.platforms = this.add.group();
     this.platforms.enableBody = true;
 
     //spikes
-    this.spikes = this.add.group();
-    this.spikes.enableBody = true;
+    // this.spikes = this.add.group();
+    // this.spikes.enableBody = true;
 
     //blueBird
     this.blueBird = this.add.sprite(10, this.player.y - 200, 'ghost');
@@ -157,8 +157,6 @@ var levelThreeGameState = {
     //fireBalls
     this.fireBalls = this.add.group();
     this.fireBalls.enableBody = true;
-
-    //this.createSpike = Phaser.Timer.SECOND * this.levelData.secondsForAntGen, this.createSpike, this;
 
     //ground set at 1100
 
@@ -186,6 +184,10 @@ var levelThreeGameState = {
 
     }, this)
 
+    this.spikeStrip = this.add.sprite(-50, 70, 'spike')
+    this.spikeStrip.frame = 3;
+    this.game.physics.arcade.enable(this.spikeStrip);
+    this.spikeStrip.body.allowGravity = false;
 
     /// keyboard control objects
     this.shootRightKey = game.input.keyboard.addKey(Phaser.Keyboard.D);
@@ -196,12 +198,6 @@ var levelThreeGameState = {
 
     this.shootUpKey = game.input.keyboard.addKey(Phaser.Keyboard.W);
     this.shootUpKey.ready = false;
-
-
-    //shoot fireBalls
-    //this.shootFireBallsLopp = this.game.time.events.loop(Phaser.Time.SECOND * this.levelData.secondsForAntGen / 10, this.shootFireBalls(), this);
-    //fly blue bird
-    //this.multiBlueBirdFlight = this.game.time.events.loop(Phaser.Time.SECOND * 8, this.flyBlueBird(), this);
   },
 
   update: function() {
@@ -249,17 +245,13 @@ var levelThreeGameState = {
     this.game.physics.arcade.collide(this.traps, this.ground);
     this.game.physics.arcade.collide(this.traps, this.platforms);
 
-    this.game.physics.arcade.overlap(this.ants, this.player, this.killPlayer);
-    this.game.physics.arcade.overlap(this.spears, this.player, this.killPlayer);
-    // this.game.physics.arcade.overlap(this.blueBird, this.player, this.killPlayer);
-    // this.game.physics.arcade.overlap(this.player, this.fireBalls, this.killPlayer)
+    this.game.physics.arcade.overlap(this.ants, this.player, this.killPlayer, null, this);
+    this.game.physics.arcade.overlap(this.spears, this.player, this.killPlayer, null, this);
+    this.game.physics.arcade.overlap(this.player, this.spikeStrip, this.killPlayer, null, this);
+    this.game.physics.arcade.overlap(this.blueBird, this.player, this.killPlayer, null, this);
+    this.game.physics.arcade.overlap(this.player, this.fireBalls, this.killPlayer, null, this);
 
-    if(this.game.physics.arcade.overlap(this.blueBird, this.player) ||  this.game.physics.arcade.overlap(this.player, this.fireBalls)){
-      // this.levelThreeSong.stop();
-      this.killPlayer()
-    }
-
-    this.game.physics.arcade.overlap(this.player, this.goal, this.levelCleared);
+    this.game.physics.arcade.overlap(this.player, this.goal, this.levelCleared, null, this);
 
     //kill all sowrds that are out of bounds
     this.killSwordsOutBounds();
@@ -355,7 +347,7 @@ var levelThreeGameState = {
       }
     }, this)
 
-    if (this.blueBird.customParams.hits >= 5 && this.blueBird.customParams.animReady) {
+    if (this.blueBird.customParams.hits >= 6 && this.blueBird.customParams.animReady) {
 
       var emitter = this.game.add.emitter(this.blueBird.x, this.blueBird.y, 100);
       emitter.makeParticles('partical');
@@ -365,17 +357,19 @@ var levelThreeGameState = {
       emitter.start(true, 500, null, 100);
       this.blueBird.customParams.animReady = false
       this.blueBird.kill();
+      this.spikeStrip.kill();
     }
   }, // *** end of update method
 
-  killPlayer: function(player, enemy) {
+  killPlayer: function(music) {
+    this.levelOneSong.stop();
     lives -= 1
     if (lives < 1) {
     lives = 3
     game.state.start('levelOneGameState');
-  } else {
+    } else {
     game.state.start('levelThreeGameState');
-  }
+    }
   },
 
   createAnt: function() {
@@ -477,8 +471,8 @@ var levelThreeGameState = {
   },
 
   levelCleared: function() {
-
-    game.state.start('levelOneGameState');
+    this.levelOneSong.stop();
+    game.state.start('endState');
     // game.state.start('levelTwoGameState');
     console.log("goal reached")
   },
