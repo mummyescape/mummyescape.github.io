@@ -17,7 +17,7 @@ var endState = {
     this.titlePage.play('flashing');
     var style = {
       font: 'bold 10pt Arial',
-      fill: '#911331',
+      fill: '#000',
       align: 'center'
     }
 
@@ -31,7 +31,7 @@ var endState = {
       { text: "The mummy's quest has only begun.."},
       { text: '\nInterested in sponsoring new enemies, levels or tracks? \ncontact: mummyescape@gmail.com'},
       { text: '\nPress T to return to the Title Screen'},
-      { text: '\nA BuhlerZ Production'}
+      { text: '\nA Zuhler Production 2016'}
     ];
 
     var yPercents = [0.65, 0.75, 0.79, 0.85, 0.95];

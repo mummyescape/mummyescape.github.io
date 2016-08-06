@@ -24,7 +24,7 @@ var titleState = {
       { text: "Shoot knives from the mummy's chest with: \n (W, A and D)"},
       { text: 'Help the mummy to escape!'},
       { text: 'Press S to begin'},
-      { text: 'A BuhlerZ Production'}
+      { text: '\nA Zuhler Production 2016'}
     ];
 
     var yPercents = [0.65, 0.75, 0.79, 0.85, 0.95];

@@ -33,7 +33,7 @@ var gameOver = {
       { text: ""},
       { text: '\nInterested in sponsoring new enemies, levels or tracks? \ncontact: mummyescape@gmail.com'},
       { text: '\nPress T to return to the Title Screen'},
-      { text: '\nA BuhlerZ Production'}
+      { text: '\nA Zuhler Production 2016'}
     ];
 
     var yPercents = [0.15, 0.50, 0.65, 0.75, 0.85];
