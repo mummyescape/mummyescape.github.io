@@ -1,40 +1,42 @@
-var endState = {
+var gameOver = {
   init: function(currentLevel) {
     this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     this.scale.pageAlignHorizontally = true;
     this.scale.pageAlignVertically = true;
     this.game.world.setBounds(0,0,360,592);
+    this.game.stage.backgroundColor = '#ff2727'
   },
 
-
   preload: function() {
-    this.load.spritesheet('titlePage', 'assets/images/titlePage.png', 360, 592, 6, 0, 0);
+    this.load.spritesheet('bigAntHead', 'assets/images/bigAntHead.png', 270, 270, 6, 0, 0);
   },
 
   create: function() {
-    this.titlePage = this.add.sprite(0 ,0 , 'titlePage');
-    this.titlePage.animations.add('flashing', [0,1,2,3,4,5], 6, true);
-    this.titlePage.play('flashing');
+    this.bigAntHead = this.add.sprite(360 / 2, 592/ 2.5 , 'bigAntHead');
+    this.bigAntHead.anchor.setTo(0.5);
+    this.bigAntHead.animations.add('biting', [0,1,2,3,4,5], 6, true);
+    this.bigAntHead.play('biting');
+
     var style = {
       font: 'bold 10pt Arial',
-      fill: '#911331',
+      fill: '#000',
       align: 'center'
     }
 
     var styleB = {
-      font: 'bold 20pt Arial',
+      font: 'bold 35pt Arial',
       fill: '#000',
       align: 'center'
     }
     var textData = [
-      { text: 'THANKS FOR PLAYING!'},
-      { text: "The mummy's quest has only begun.."},
+      { text: 'GAME OVER'},
+      { text: ""},
       { text: '\nInterested in sponsoring new enemies, levels or tracks? \ncontact: mummyescape@gmail.com'},
       { text: '\nPress T to return to the Title Screen'},
       { text: '\nA BuhlerZ Production'}
     ];
 
-    var yPercents = [0.65, 0.75, 0.79, 0.85, 0.95];
+    var yPercents = [0.15, 0.50, 0.65, 0.75, 0.85];
     /// text
     this.contentText = this.game.add.text(this.game.width/2, this.game.height * yPercents[0], '', styleB);
     this.contentText.anchor.setTo(0.5);

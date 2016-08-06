@@ -511,6 +511,7 @@ var levelThreeGameState = {
   },
 
   flyBlueBird: function() {
+    //take players position to determine the path of the wizard / 'blue bird'
      if (this.blueBird.x > this.X_MAX + 50 && this.blueBird.customParams.nextFromAbove) {
        this.blueBird.reset(this.blueBird.x - 1, this.player.y - 200);
        this.blueBird.body.velocity.x = -200;

@@ -291,9 +291,12 @@ var levelOneGameState = {
     this.levelOneSong.stop();
     lives -= 1;
     if (lives < 1) {
+      game.state.start('gameOver');
       lives = 3;
+    } else {
+      game.state.start('levelOneGameState');
     }
-    game.state.start('levelOneGameState');
+
   },
 
   createAnt: function() {
@@ -446,4 +449,5 @@ var levelOneGameState = {
   game.state.add('levelThreeGameState', levelThreeGameState);
   game.state.add('titleState', titleState);
   game.state.add('endState', endState);
+  game.state.add('gameOver', gameOver)
   game.state.start('titleState');

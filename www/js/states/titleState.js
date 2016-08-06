@@ -6,15 +6,14 @@ var titleState = {
     this.game.world.setBounds(0,0,360,592);
   },
 
-
-
   preload: function() {
-    this.load.image('titlePage', 'assets/images/titlePage.png');
+    this.load.spritesheet('titlePage', 'assets/images/titlePage.png', 360, 592, 6, 0, 0);
   },
 
   create: function() {
     this.titlePage = this.add.sprite(0 ,0 , 'titlePage');
-
+    this.titlePage.animations.add('flashing', [0,1,2,3,4,5], 6, true);
+    this.titlePage.play('flashing');
     var style = {
       font: 'bold 10pt Arial',
       fill: '#000',
@@ -59,13 +58,6 @@ var titleState = {
 
     this.startKey = game.input.keyboard.addKey(Phaser.Keyboard.S);
 
-
-    //
-    // for (var i = 0; i < 4; i++) {
-    //
-    //   this.showText(textData[i], yPercents[i]);
-    // }
-
   },
 
   update: function() {
@@ -74,21 +66,6 @@ var titleState = {
     }
   },
 
-  // showText: function(content, yPercent) {
-  //
-  //   if(!this.contentText) {
-  //     var style = {
-  //       font: 'bold 16pt Arial',
-  //       fill: '#000',
-  //       align: 'center'
-  //     }
-  //     this.contentText = this.game.add.text(this.game.width/2, this.game.height * yPercent, '', style);
-  //     this.contentText.anchor.setTo(0.5);
-  //   }
-  //
-  //   this.contentText.setText(content.text);
-  //   this.contentText.visible = true;
-  // }
 
 
 }
