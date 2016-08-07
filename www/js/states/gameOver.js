@@ -9,6 +9,7 @@ var gameOver = {
 
   preload: function() {
     this.load.spritesheet('bigAntHead', 'assets/images/bigAntHead.png', 270, 270, 6, 0, 0);
+    this.load.audio('gameOverSong', ['assets/sounds/gameOverSong.ogg', 'assets/sounds/gameOverSong.mp3']);
   },
 
   create: function() {
@@ -16,6 +17,9 @@ var gameOver = {
     this.bigAntHead.anchor.setTo(0.5);
     this.bigAntHead.animations.add('biting', [0,1,2,3,4,5], 6, true);
     this.bigAntHead.play('biting');
+    this.gameOverSong = this.add.audio('gameOverSong');
+    this.gameOverSong.loop = true;
+    this.gameOverSong.play();
 
     var style = {
       font: 'bold 10pt Arial',
