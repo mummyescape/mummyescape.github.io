@@ -9,7 +9,7 @@ var gameOver = {
 
   preload: function() {
     this.load.spritesheet('bigAntHead', 'assets/images/bigAntHead.png', 270, 270, 6, 0, 0);
-    this.load.audio('gameOverSong', ['assets/sounds/gameOverSong.ogg', 'assets/sounds/gameOverSong.mp3']);
+    this.load.audio('gameOverSong', ['assets/sounds/gameOverSong.mp3', 'assets/sounds/gameOverSong.ogg']);
   },
 
   create: function() {
